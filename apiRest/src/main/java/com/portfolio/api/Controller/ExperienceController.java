@@ -1,8 +1,10 @@
 package com.portfolio.api.Controller;
 
 import com.portfolio.api.Model.Experience;
+import com.portfolio.api.Model.Persona;
 import com.portfolio.api.Service.ExperienceService;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,16 +20,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/experience")
 
 public class ExperienceController {
-
-    private final ExperienceService exS;
+    
+    @Autowired
+    ExperienceService exS;
 
     public ExperienceController(ExperienceService exS) {
         this.exS = exS;
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Experience> createExperience(@RequestBody Experience education) {
-        Experience newExperience = exS.addExperience(education);
+    public ResponseEntity<Experience> createExperience(@RequestBody Experience experience) {
+        Experience newExperience = exS.addExperience(experience);
         return new ResponseEntity<>(newExperience, HttpStatus.CREATED);
     }
 
@@ -37,10 +40,16 @@ public class ExperienceController {
         return new ResponseEntity<>(educations, HttpStatus.OK);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Experience> updateExperience(@RequestBody Experience education) {
-        Experience updateExperience = exS.updateExperience(education);
-        return new ResponseEntity<>(updateExperience, HttpStatus.OK);
+//    @PutMapping("/update")
+//    public ResponseEntity<Experience> updateExperience(@RequestBody Experience experience) {
+//        Experience updateExperience = exS.updateExperience(experience);
+//        return new ResponseEntity<>(updateExperience, HttpStatus.OK);
+//    }
+    
+     @PutMapping("/update")
+    public String updateExperience(@RequestBody Experience experience) {
+        exS.updateExperience(experience);
+        return "La persona fue creada correctamente";
     }
 
     @DeleteMapping("/delete/{id}")

@@ -15,28 +15,22 @@ public class Experience {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private int id;
     @Basic
     private String urlImageEx;
     private String positionEx;
     private String modeEx;
-    private int startEx;
-    private int endEx;
+    private String startEx;
+    private String endEx;
 
     public Experience() {
     }
 
-    public Experience(Long id, String urlImageEx, String positionEx, String modeEx, int startEx, int endEx) {
-        this.id = id;
+    public Experience(String urlImageEx, String positionEx, String modeEx, String startEx, String endEx) {
         this.urlImageEx = urlImageEx;
         this.positionEx = positionEx;
         this.modeEx = modeEx;
         this.startEx = startEx;
         this.endEx = endEx;
     }
-    
-    
-    
-    
-
 }

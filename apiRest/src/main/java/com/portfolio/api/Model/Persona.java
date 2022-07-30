@@ -24,16 +24,18 @@ public class Persona {
     String position;
     String location;
     String urlImage;
+    String about;
 
     public Persona() {
     }
 
-    public Persona(Long id, String fullName, String position, String location, String urlImage) {
+    public Persona(Long id, String fullName, String position, String location, String urlImage, String about) {
         this.id = id;
         this.fullName = fullName;
         this.position = position;
         this.location = location;
         this.urlImage = urlImage;
+        this.about = about;
     }
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "id")
