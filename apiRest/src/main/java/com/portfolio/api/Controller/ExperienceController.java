@@ -46,14 +46,15 @@ public class ExperienceController {
 //        return new ResponseEntity<>(updateExperience, HttpStatus.OK);
 //    }
     
-     @PutMapping("/update")
-    public String updateExperience(@RequestBody Experience experience) {
+     @PostMapping("/edit")
+    public void updateExperience(@RequestBody Experience experience) {
         exS.updateExperience(experience);
-        return "La persona fue creada correctamente";
     }
+    
+  
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteExperience(@PathVariable("id") Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteExperience(@PathVariable Long id) {
         exS.deleteExperience(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

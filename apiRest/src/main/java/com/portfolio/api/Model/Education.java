@@ -12,21 +12,21 @@ import lombok.Setter;
 @Setter
 @Entity
 public class Education {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    Long id;
     @Basic
-    private String schoolEd;
-    private String urlImageEd;
-    private String titleEd;
-    private int startEd;
-    private int endEd;
+    String schoolEd;
+    String urlImageEd;
+    String titleEd;
+    String startEd;
+    String endEd;
 
     public Education() {
     }
 
-    public Education(Long id, String schoolEd, String urlImageEd, String titleEd, int startEd, int endEd) {
+    public Education(Long id, String schoolEd, String urlImageEd, String titleEd, String startEd, String endEd) {
         this.id = id;
         this.schoolEd = schoolEd;
         this.urlImageEd = urlImageEd;
@@ -35,10 +35,10 @@ public class Education {
         this.endEd = endEd;
     }
 
-//    public class HttpStatus {
-//
-//        public HttpStatus() {
-//        }
-//    }
+    public class HttpStatus {
+
+        public HttpStatus() {
+        }
+    }
 
 }

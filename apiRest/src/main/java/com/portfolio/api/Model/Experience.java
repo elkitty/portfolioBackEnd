@@ -15,7 +15,7 @@ public class Experience {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
     @Basic
     private String urlImageEx;
     private String positionEx;
@@ -34,3 +34,4 @@ public class Experience {
         this.endEx = endEx;
     }
 }
+
