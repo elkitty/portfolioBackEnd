@@ -1,62 +1,60 @@
 package com.portfolio.api.Controller;
 
+import com.portfolio.api.Excepcion.ResourceNotFoundException;
 import com.portfolio.api.Model.Experience;
-import com.portfolio.api.Model.Persona;
 import com.portfolio.api.Service.ExperienceService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import static org.hibernate.annotations.common.util.impl.LoggerFactory.logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/experience")
-
 public class ExperienceController {
-    
-    @Autowired
-    ExperienceService exS;
 
-    public ExperienceController(ExperienceService exS) {
-        this.exS = exS;
+    private static final Logger logger = LoggerFactory.getLogger(ExperienceController.class);
+
+    @Autowired
+    private ExperienceService experienceService;
+
+    @GetMapping("/all")
+    public List<Experience> findAllExperiences() {
+        List<Experience> experiences = this.experienceService.findAllExperiences();
+        return experiences;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Experience> getExperienceById(@PathVariable Integer id) {
+        Experience experience = this.experienceService.findExperienceById(id);
+        if (experience != null) {
+            return ResponseEntity.ok(experience);
+        } else {
+            throw new ResourceNotFoundException("No se encontro el ID " + id);
+        }
     }
 
     @PostMapping("/add")
     public ResponseEntity<Experience> createExperience(@RequestBody Experience experience) {
-        Experience newExperience = exS.addExperience(experience);
+        logger.info("URL de Imagen recibida: {}", experience.getUrlImage());
+        Experience newExperience = experienceService.addExperience(experience);
         return new ResponseEntity<>(newExperience, HttpStatus.CREATED);
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<List<Experience>> findExperience() {
-        List<Experience> educations = exS.findExperience();
-        return new ResponseEntity<>(educations, HttpStatus.OK);
+    @PutMapping("/{id}")
+    public ResponseEntity<Experience> updateExperience(@PathVariable Integer id, @RequestBody Experience experience) {
+        Experience updatedExperience = experienceService.updateExperience(id, experience);
+        return new ResponseEntity<>(updatedExperience, HttpStatus.OK);
     }
-
-//    @PutMapping("/update")
-//    public ResponseEntity<Experience> updateExperience(@RequestBody Experience experience) {
-//        Experience updateExperience = exS.updateExperience(experience);
-//        return new ResponseEntity<>(updateExperience, HttpStatus.OK);
-//    }
-    
-     @PostMapping("/edit")
-    public void updateExperience(@RequestBody Experience experience) {
-        exS.updateExperience(experience);
-    }
-    
-  
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteExperience(@PathVariable Long id) {
-        exS.deleteExperience(id);
+    public ResponseEntity<?> deleteExperience(@PathVariable Integer id) {
+        experienceService.deleteExperience(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

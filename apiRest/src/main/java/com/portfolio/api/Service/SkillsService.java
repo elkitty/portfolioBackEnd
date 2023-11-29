@@ -1,6 +1,6 @@
 package com.portfolio.api.Service;
 
-import com.portfolio.api.Model.Skills;
+import com.portfolio.api.Model.Skill;
 import com.portfolio.api.Repository.SkillsRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,19 +17,19 @@ public class SkillsService {
         this.skillsRepository = skillsRepository;
     }
     
-    public Skills addSkills(Skills skills) {
+    public Skill addSkills(Skill skills) {
         return skillsRepository.save(skills);
     }
     
-    public List<Skills>findSkills(){
+    public List<Skill>findSkills(){
         return skillsRepository.findAll();
     }
     
-    public Skills updateSkills(Skills skills){
+    public Skill updateSkills(Skill skills){
         return skillsRepository.save(skills);
     }
     
-    public void deleteSkills(Long id){
+    public void deleteSkills(Integer id){
        skillsRepository.deleteById(id);
     }
     

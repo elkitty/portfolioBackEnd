@@ -11,6 +11,7 @@ Without this configuration present, some functionality in the IDE may be limited
         <word>argpro</word>
         <word>arp</word>
         <word>arpro</word>
+        <word>ddbb</word>
         <word>jdbc</word>
         <word>localhost</word>
         <word>MySQL</word>

@@ -29,7 +29,7 @@ public class EducationService {
         return educationRepository.save(education);
     }
     
-    public void deleteEducation(Long id){
+    public void deleteEducation(Integer id){
        educationRepository.deleteById(id);
     }
     

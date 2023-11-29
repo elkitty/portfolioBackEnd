@@ -1,50 +1,50 @@
 package com.portfolio.api.Model;
 
-import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@Entity
-public class Persona {
+@ToString
+public class Persona implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    @Basic
-    String fullName;
-    String position;
-    String location;
-    String urlImage;
-    String about;
+    @Column(name = "personaId")  // Cambia el nombre según tu preferencia
+    private Integer id;
 
-    public Persona() {
-    }
+    @Column(nullable = false)
+    private String fullName;
+    private String position;
+    private String location;
+    private String urlImage;
+    @Column(columnDefinition = "TEXT")
+    private String about;
 
-    public Persona(Long id, String fullName, String position, String location, String urlImage, String about) {
-        this.id = id;
-        this.fullName = fullName;
-        this.position = position;
-        this.location = location;
-        this.urlImage = urlImage;
-        this.about = about;
-    }
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id")
+    @OneToMany(mappedBy = "persona")
+    @JsonIgnoreProperties("persona")
     private List<Education> educationList;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id")
-    private List<Skills> skillList;
+    @OneToMany(mappedBy = "persona")
+    @JsonIgnoreProperties("persona")
+    private List<Skill> skillList;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "id")
+    @OneToMany(mappedBy = "persona")
+    @JsonIgnoreProperties("persona")
     private List<Experience> experienceList;
 
 }

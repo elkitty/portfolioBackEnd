@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/education")
 
@@ -38,19 +39,19 @@ public class EducationController {
         return new ResponseEntity<>(educations, HttpStatus.OK);
     }
 
-//    @PutMapping("/update")
-//    public ResponseEntity<Education> updateEducation(@RequestBody Education education) {
-//        Education updateEducation = eS.updateEducation(education);
-//        return new ResponseEntity<>(updateEducation, HttpStatus.OK);
-//    }
-    
-    @PostMapping("/update")
-    public void updateEducation(@RequestBody Education education) {
-        eS.addEducation(education);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Education> updateEducation(@RequestBody Education education) {
+        Education updateEducation = eS.updateEducation(education);
+        return new ResponseEntity<>(updateEducation, HttpStatus.OK);
     }
+    
+//    @PostMapping("/update")
+//    public void updateEducation(@RequestBody Education education) {
+//        eS.addEducation(education);
+//    }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteEducation(@PathVariable("id") Long id) {
+    public ResponseEntity<?> deleteEducation(@PathVariable("id") Integer id) {
         eS.deleteEducation(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
